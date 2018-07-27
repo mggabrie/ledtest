@@ -9,14 +9,14 @@ from luma.core.legacy.font import proportional, CP437_FONT, TINY_FONT, SINCLAIR_
 
 def led(n, block_orientation, rotate):
 	serial = spi(port=0, device=0, gpio=noop())
-    device = max7219(serial, cascaded=n or 1, block_orientation=block_orientation, rotate=rotate or 0)
-    print("Created device")
-    
-    msg = "MAX7219 LED Matrix Demo"
-    print(msg)
-    show_message(device, msg, fill="white", font=proportional(CP437_FONT))
-    time.sleep(1)
-    
+	device = max7219(serial, cascaded=n or 1, block_orientation=block_orientation, rotate=rotate or 0)
+	print("Created device")
+	
+	msg = "MAX7219 LED Matrix Demo"
+	print(msg)
+	show_message(device, msg, fill="white", font=proportional(CP437_FONT))
+	time.sleep(1)
+	   
 try:
 	led(4, 0, 0)
 except KeyboardInterrupt:
