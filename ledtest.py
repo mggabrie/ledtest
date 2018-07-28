@@ -1,5 +1,6 @@
 import time
 
+from time import gmtime, strftime
 from luma.led_matrix.device import max7219
 from luma.core.interface.serial import spi, noop
 from luma.core.render import canvas
@@ -12,12 +13,12 @@ def led(n, block_orientation, rotate):
 	device = max7219(serial, cascaded=n or 1, block_orientation=block_orientation, rotate=rotate or 0)
 	print("Created device")
 	
-	msg = "MAX7219 LED Matrix Demo"
+	msg = "strftime("%H:%M:%S", gmtime())"
 	print(msg)
 	show_message(device, msg, fill="white", font=proportional(CP437_FONT))
 	time.sleep(1)
 	   
 try:
-	led(4, 0, 0)
+	led(4, -90, 0)
 except KeyboardInterrupt:
 	pass
