@@ -13,7 +13,7 @@ def led():
 	device = max7219(serial, cascaded=4, block_orientation=-90, rotate=0)
 	print("Device created")
 	while True:
-		msg = strftime("%H:%M%P", localtime())
+		msg = strftime("%I:%M%P", localtime())
 		with canvas(device) as draw:
 			text(draw, (0, 0), msg, fill="white", font=proportional(LCD_FONT))
 	   
