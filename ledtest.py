@@ -13,12 +13,10 @@ def led(n, block_orientation, rotate):
 	device = max7219(serial, cascaded=n or 1, block_orientation=block_orientation, rotate=rotate or 0)
 	print("Created device")
 	
-	msg = strftime("%H/%M/%S", gmtime())
+	msg = strftime("%I:%M %P", gmtime())
 	print(msg)
 	show_message(device, msg, fill="white", font=proportional(CP437_FONT))
 	time.sleep(1)
 	   
-try:
+while True:
 	led(4, -90, 0)
-except KeyboardInterrupt:
-	pass
