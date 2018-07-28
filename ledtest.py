@@ -13,9 +13,9 @@ def led(n, block_orientation, rotate):
 	device = max7219(serial, cascaded=n or 1, block_orientation=block_orientation, rotate=rotate or 0)
 	print("Created device")
 	
-	msg = strftime("%I:%M %P", gmtime())
+	msg = strftime("%I:%M %P", localtime())
 	print(msg)
-	show_message(device, msg, fill="white", font=proportional(CP437_FONT))
+	show_message(device, msg, fill="white", font=proportional(LCD_FONT))
 	time.sleep(1)
 	   
 while True:
