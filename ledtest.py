@@ -8,15 +8,13 @@ from luma.core.virtual import viewport
 from luma.core.legacy import text, show_message
 from luma.core.legacy.font import proportional, CP437_FONT, TINY_FONT, SINCLAIR_FONT, LCD_FONT
 
-def led(n, block_orientation, rotate):
+def led():
 	serial = spi(port=0, device=0, gpio=noop())
-	device = max7219(serial, cascaded=n or 1, block_orientation=block_orientation, rotate=rotate or 0)
-	print("Created device")
-	
-	msg = strftime("%I:%M %P", localtime())
-	print(msg)
-	show_message(device, msg, fill="white", font=proportional(LCD_FONT))
-	time.sleep(1)
+	device = max7219(serial, cascaded=4, block_orientation=-90, rotate=0)
+	print("Device created")
+	while True:
+		msg = strftime("%I:%M %P", localtime())
+		with canvas(device) as draw:
+			text(draw, (0, 0), msg, fill="white", font=proportional(LCD_FONT))
 	   
-while True:
-	led(4, -90, 0)
+led()
