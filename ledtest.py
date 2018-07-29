@@ -11,9 +11,17 @@ def led():
 	msg = strftime("%I:%M%P", localtime())
 	with canvas(device) as draw:
 		text(draw, (0, 0), msg, fill="white", font=proportional(LCD_FONT))
+def temp():
+	msg = "Readout"
+	with canvas(device) as draw:
+		text(draw, (0, 0), msg, fill="white", font=proportional(LCD_FONT))
 
 serial = spi(port=0, device=0, gpio=noop())
 device = max7219(serial, cascaded=4, block_orientation=-90, rotate=0)
 
 while True:
-	led()
+	for i in range(10):
+		led()
+		time.sleep(1)
+	temp()
+	time.sleep(10)
