@@ -18,6 +18,7 @@ def temp():
 
 serial = spi(port=0, device=0, gpio=noop())
 device = max7219(serial, cascaded=4, block_orientation=-90, rotate=0)
+device.contrast(40)
 
 while True:
 	for i in range(10):
