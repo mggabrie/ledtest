@@ -20,7 +20,7 @@ def temp():
 	temp_html = soup_html.find("div", attrs={"class": "today_nowcard-temp"})
 	msg = temp_html.text.strip()
 	with canvas(device) as draw:
-		text(draw, (0, 0), (msg[0:2]+chr(176)+"F"), fill="white", font=proportional(LCD_FONT))
+		text(draw, (0, 0), (msg[0:2]+chr(247)+"F"), fill="white", font=proportional(LCD_FONT))
 
 serial = spi(port=0, device=0, gpio=noop())
 device = max7219(serial, cascaded=4, block_orientation=-90, rotate=0)
