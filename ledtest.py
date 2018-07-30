@@ -30,5 +30,8 @@ while True:
 	for i in range(10):
 		led()
 		time.sleep(1)
-	temp()
+	try:
+		temp()
+	except:
+		continue
 	time.sleep(10)
