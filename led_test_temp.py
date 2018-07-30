@@ -1,5 +1,6 @@
 import time
-import urllib2
+import urllib.request
+import urllib.error
 
 from time import localtime, strftime
 from luma.led_matrix.device import max7219
@@ -15,7 +16,7 @@ def led():
 		text(draw, (0, 0), msg, fill="white", font=proportional(LCD_FONT))
 def temp():
 	url = "https://www.accuweather.com/en/us/bronx-ny/10462/weather-forecast/334650"
-	html = urllib2.urlopen(url)
+	html = urllib.request.urlopen(url)
 	soup_html = BeautifulSoup(html, "html.parser")
 	temp_html = soup_html("span", attrs={"class": "large-temp"})
 	msg = temp_html.text.strip()
@@ -24,7 +25,7 @@ def temp():
 
 serial = spi(port=0, device=0, gpio=noop())
 device = max7219(serial, cascaded=4, block_orientation=-90, rotate=0)
-device.contrast(40)
+device.contrast(50)
 
 while True:
 	for i in range(10):
