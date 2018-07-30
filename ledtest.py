@@ -10,7 +10,7 @@ from luma.core.legacy import text, show_message
 from luma.core.legacy.font import proportional, CP437_FONT, TINY_FONT, SINCLAIR_FONT, LCD_FONT
 
 def led():
-	msg = strftime("%I:%M%P", localtime())
+	msg = strftime("%I:%M", localtime())
 	with canvas(device) as draw:
 		text(draw, (0, 0), msg, fill="white", font=proportional(LCD_FONT))
 def temp():
