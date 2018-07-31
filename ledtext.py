@@ -9,13 +9,13 @@ def led():
 	msg = input("Enter your message: ")
 	with canvas(device) as draw:
 		for i in range(4):
-			text(draw, (0, 0), msg, fill="white", font=font[i])
+			text(draw, (0, 0), msg, fill="white", font=proportional(TINY_FONT))
 			time.sleep(1)
 
 serial = spi(port=0, device=0, gpio=noop())
 device = max7219(serial, cascaded=4, block_orientation=-90, rotate=0)
 device.contrast(50)
-font = [proportional, CP437_FONT, TINY_FONT, SINCLAIR_FONT, LCD_FONT]
+font = [CP437_FONT, TINY_FONT, SINCLAIR_FONT, LCD_FONT]
 
 while True:
 	led()
