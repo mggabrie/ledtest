@@ -19,8 +19,11 @@ def temp():
 	soup_html = bs4.BeautifulSoup(html, "html.parser")
 	temp_html = soup_html.find("div", attrs={"class": "today_nowcard-temp"})
 	temp_msg = temp_html.text.strip()
+	hum_html = soup_html.find("div", attrs={"class": "today_nowcard-sidecar component panel"})
+	hum_msg = hum_html.text.strip()
+	i = hum_msg.find("Humidity")
 	with canvas(device) as draw:
-		text(draw, (0, 0), (temp_msg[0:2]+"F"), fill="white", font=proportional(TINY_FONT))
+		text(draw, (0, 0), (temp_msg[0:2]+"F "+hum_msg[i+8:i+11]), fill="white", font=proportional(TINY_FONT))
 	time.sleep(3)
 	phrase_html = soup_html.find("div", attrs={"class": "today_nowcard-phrase"})
 	phrase_msg = phrase_html.text.strip()
