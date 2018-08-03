@@ -18,33 +18,24 @@ def temp():
 	html = urllib.request.urlopen(url)
 	soup_html = bs4.BeautifulSoup(html, "html.parser")
 	temp_html = soup_html.find("div", attrs={"class": "today_nowcard-temp"})
-	msg = temp_html.text.strip()
+	temp_msg = temp_html.text.strip()
+	prase_html = soup_html.find("div", attrs={"class": "today_nowcard-phrase"})
+	phrase_msg = phrase_html.text.strip()
 	with canvas(device) as draw:
-		text(draw, (0, 0), (msg[0:2]+"F"), fill="white", font=proportional(TINY_FONT))
-def phrase():
-	url = "https://weather.com/weather/today/l/10461:4:US"
-	html = urllib.request.urlopen(url)
-	soup_html = bs4.BeautifulSoup(html, "html.parser")
-	temp_html = soup_html.find("div", attrs={"class": "today_nowcard-phrase"})
-	msg = temp_html.text.strip()
-	with canvas(device) as draw:
-		text(draw, (0, 0), (msg[0:2]+"F"), fill="white", font=proportional(TINY_FONT))
+		text(draw, (0, 0), (temp_msg[0:2]+"F"), fill="white", font=proportional(TINY_FONT))
+	time.sleep(3)
+	show_message(device, phrase_msg, fill="white", font=proportional(TINY_FONT))
+	time.sleep(3)
 		
 serial = spi(port=0, device=0, gpio=noop())
 device = max7219(serial, cascaded=4, block_orientation=-90, rotate=0)
 device.contrast(10)
 
 while True:
-	for i in range(10):
+	for i in range(2):
 		led()
 		time.sleep(1)
 	try:
 		temp()
 	except:
 		continue
-	time.sleep(5)
-	try:
-		phrase()
-	except:
-		continue
-	time.sleep(5)
