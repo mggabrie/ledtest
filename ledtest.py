@@ -22,15 +22,13 @@ def weather():
 	hum_html = soup_html.find("div", attrs={"class": "today_nowcard-sidecar component panel"})
 	hum_msg = hum_html.text.strip()
 	i = hum_msg.find("Humidity")
-	phrase_html = soup_html.find("div", attrs={"class": "today_nowcard-phrase"})
-	phrase_msg = phrase_html.text.strip()	
 	with canvas(device) as draw:
 		text(draw, (0, 0), (temp_msg[0:2]+"F "+hum_msg[i+8:i+11]), fill="white", font=proportional(TINY_FONT))
-		time.sleep(3)
-		for x in range(1:33):
-			text(draw, (-x, 0), phrase_msg, fill="white", font=proportional(TINY_FONT))
-			time.sleep(0.1)
-		
+	time.sleep(3)
+	phrase_html = soup_html.find("div", attrs={"class": "today_nowcard-phrase"})
+	phrase_msg = phrase_html.text.strip()
+	show_message(device, phrase_msg, fill="white", font=proportional(TINY_FONT))
+	
 serial = spi(port=0, device=0, gpio=noop())
 device = max7219(serial, cascaded=4, block_orientation=-90, rotate=0)
 device.contrast(10)
