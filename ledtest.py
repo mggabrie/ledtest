@@ -25,7 +25,6 @@ def temp():
 	phrase_html = soup_html.find("div", attrs={"class": "today_nowcard-phrase"})
 	phrase_msg = phrase_html.text.strip()
 	show_message(device, phrase_msg, fill="white", font=proportional(TINY_FONT))
-	time.sleep(3)
 		
 serial = spi(port=0, device=0, gpio=noop())
 device = max7219(serial, cascaded=4, block_orientation=-90, rotate=0)
