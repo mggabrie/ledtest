@@ -9,11 +9,11 @@ from luma.core.render import canvas
 from luma.core.legacy import text, show_message
 from luma.core.legacy.font import proportional, TINY_FONT
 
-def led():
+def current_time():
 	msg = strftime("%I:%M%p", localtime())
 	with canvas(device) as draw:
 		text(draw, (0, 0), msg, fill="white", font=proportional(TINY_FONT))
-def temp():
+def weather():
 	url = "https://weather.com/weather/today/l/10461:4:US"
 	html = urllib.request.urlopen(url)
 	soup_html = bs4.BeautifulSoup(html, "html.parser")
@@ -35,9 +35,9 @@ device.contrast(10)
 
 while True:
 	for i in range(2):
-		led()
+		current_time()
 		time.sleep(1)
 	try:
-		temp()
+		weather()
 	except:
 		continue
