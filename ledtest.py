@@ -19,11 +19,11 @@ def temp():
 	soup_html = bs4.BeautifulSoup(html, "html.parser")
 	temp_html = soup_html.find("div", attrs={"class": "today_nowcard-temp"})
 	temp_msg = temp_html.text.strip()
-	prase_html = soup_html.find("div", attrs={"class": "today_nowcard-phrase"})
-	phrase_msg = phrase_html.text.strip()
 	with canvas(device) as draw:
 		text(draw, (0, 0), (temp_msg[0:2]+"F"), fill="white", font=proportional(TINY_FONT))
 	time.sleep(3)
+	phrase_html = soup_html.find("div", attrs={"class": "today_nowcard-phrase"})
+	phrase_msg = phrase_html.text.strip()
 	show_message(device, phrase_msg, fill="white", font=proportional(TINY_FONT))
 	time.sleep(3)
 		
