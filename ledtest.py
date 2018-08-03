@@ -10,7 +10,7 @@ from luma.core.legacy import text, show_message
 from luma.core.legacy.font import proportional, TINY_FONT
 
 def led():
-	msg = strftime("%I:%M", localtime())
+	msg = strftime("%I:%M%p", localtime())
 	with canvas(device) as draw:
 		text(draw, (0, 0), msg, fill="white", font=proportional(TINY_FONT))
 def temp():
@@ -18,6 +18,14 @@ def temp():
 	html = urllib.request.urlopen(url)
 	soup_html = bs4.BeautifulSoup(html, "html.parser")
 	temp_html = soup_html.find("div", attrs={"class": "today_nowcard-temp"})
+	msg = temp_html.text.strip()
+	with canvas(device) as draw:
+		text(draw, (0, 0), (msg[0:2]+"F"), fill="white", font=proportional(TINY_FONT))
+def phrase():
+	url = "https://weather.com/weather/today/l/10461:4:US"
+	html = urllib.request.urlopen(url)
+	soup_html = bs4.BeautifulSoup(html, "html.parser")
+	temp_html = soup_html.find("div", attrs={"class": "today_nowcard-phrase"})
 	msg = temp_html.text.strip()
 	with canvas(device) as draw:
 		text(draw, (0, 0), (msg[0:2]+"F"), fill="white", font=proportional(TINY_FONT))
@@ -34,4 +42,9 @@ while True:
 		temp()
 	except:
 		continue
-	time.sleep(10)
+	time.sleep(5)
+	try:
+		phrase()
+	except:
+		continue
+	time.sleep(5)
