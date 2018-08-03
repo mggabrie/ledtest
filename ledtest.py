@@ -27,7 +27,7 @@ def weather():
 	with canvas(device) as draw:
 		text(draw, (0, 0), (temp_msg[0:2]+"F "+hum_msg[i+8:i+11]), fill="white", font=proportional(TINY_FONT))
 		time.sleep(3)
-		for x in range(1:33)
+		for x in range(1:33):
 			text(draw, (-x, 0), phrase_msg, fill="white", font=proportional(TINY_FONT))
 			time.sleep(0.1)
 		
