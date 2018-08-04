@@ -28,7 +28,14 @@ def weather():
 	phrase_html = soup_html.find("div", attrs={"class": "today_nowcard-phrase"})
 	phrase_msg = phrase_html.text.strip()
 	show_message(device, phrase_msg, fill="white", font=proportional(TINY_FONT))
-	
+	try:
+		warning_html = soup_html.find("span", attrs={"class": "warning-text"})
+		warning_msg = warning_html.text.strip()
+		timestamp_html = soup_html.find("span", attrs={"class": "timestamp"})
+		timestamp_msg = timestamp_html.text.strip()
+		show_message(device, warning_msg+" "+timestamp_msg, fill="white", font=proportional(TINY_FONT))
+	except:
+		break
 serial = spi(port=0, device=0, gpio=noop())
 device = max7219(serial, cascaded=4, block_orientation=-90, rotate=0)
 device.contrast(10)
