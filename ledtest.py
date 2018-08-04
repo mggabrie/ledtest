@@ -35,7 +35,7 @@ def weather():
 		timestamp_msg = timestamp_html.text.strip()
 		show_message(device, warning_msg+" "+timestamp_msg, fill="white", font=proportional(TINY_FONT))
 	except:
-		break
+		pass
 serial = spi(port=0, device=0, gpio=noop())
 device = max7219(serial, cascaded=4, block_orientation=-90, rotate=0)
 device.contrast(10)
