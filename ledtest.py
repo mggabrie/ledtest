@@ -1,4 +1,4 @@
-import time
+import time 
 import bs4
 import urllib.request
 
@@ -9,11 +9,11 @@ from luma.core.render import canvas
 from luma.core.legacy import text, show_message
 from luma.core.legacy.font import proportional, TINY_FONT
 
-def current_time():
+def current_time(): #Prints the current time in to the LED matrix
 	msg = strftime("%I:%M%p", localtime())
 	with canvas(device) as draw:
 		text(draw, (0, 0), msg, fill="white", font=proportional(TINY_FONT))
-def weather():
+def weather(): #Prints temp, humidity, weather, and warning if present
 	url = "https://weather.com/weather/today/l/10461:4:US"
 	html = urllib.request.urlopen(url)
 	soup_html = bs4.BeautifulSoup(html, "html.parser")
@@ -22,13 +22,13 @@ def weather():
 	hum_html = soup_html.find("div", attrs={"class": "today_nowcard-sidecar component panel"})
 	hum_msg = hum_html.text.strip()
 	i = hum_msg.find("Humidity")
-	with canvas(device) as draw:
+	with canvas(device) as draw: #Prints string of temp and humidity to device
 		text(draw, (0, 0), (temp_msg[0:2]+"F "+hum_msg[i+8:i+11]), fill="white", font=proportional(TINY_FONT))
 	time.sleep(3)
 	phrase_html = soup_html.find("div", attrs={"class": "today_nowcard-phrase"})
 	phrase_msg = phrase_html.text.strip()
-	show_message(device, phrase_msg, fill="white", font=proportional(TINY_FONT))
-	try:
+	show_message(device, phrase_msg, fill="white", font=proportional(TINY_FONT)) #Prints current weather to device
+	try:	#Print warning message to device if present
 		warning_html = soup_html.find("span", attrs={"class": "warning-text"})
 		warning_msg = warning_html.text.strip()
 		timestamp_html = soup_html.find("span", attrs={"class": "timestamp"})
@@ -36,6 +36,7 @@ def weather():
 		show_message(device, warning_msg+" "+timestamp_msg, fill="white", font=proportional(TINY_FONT))
 	except:
 		pass
+	
 serial = spi(port=0, device=0, gpio=noop())
 device = max7219(serial, cascaded=4, block_orientation=-90, rotate=0)
 device.contrast(10)
