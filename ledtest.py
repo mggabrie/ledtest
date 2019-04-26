@@ -14,7 +14,7 @@ def current_time(): #Prints the current time in to the LED matrix
 	with canvas(device) as draw:
 		text(draw, (0, 0), msg, fill="white", font=proportional(TINY_FONT))
 def weather(): #Prints temp, humidity, weather, and warning if present
-	url = "https://weather.com/weather/today/l/10461:4:US"
+	url = "https://weather.com/weather/today/l/21057:4:US"
 	html = urllib.request.urlopen(url)
 	soup_html = bs4.BeautifulSoup(html, "html.parser")
 	temp_html = soup_html.find("div", attrs={"class": "today_nowcard-temp"})
